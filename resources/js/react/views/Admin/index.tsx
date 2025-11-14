@@ -3,7 +3,8 @@ import {createReactRoot} from '@/helpers/createReactRoot.jsx'
 import styles from "./admin.module.scss"
 import iBackGround from "@/assets/MainPage/background.png";
 import {Tab, Tabs} from "@mui/material";
-import CategoriesForm from "@/views/Admin/_components/CategoriesForm/CategoriesForm";
+import CategoriesForm from "@/views/Admin/_components/CategoriesForm";
+import BlogForm from "@/views/Admin/_components/BlogForm";
 
 const MainPage = () => {
   const [tab, setTab] = useState<'categories'|'blog'>('categories')
@@ -26,6 +27,10 @@ const MainPage = () => {
 
         {tab === 'categories' ? (
           <CategoriesForm />
+        ) : null}
+
+        {tab === 'blog' ? (
+          <BlogForm />
         ) : null}
       </div>
     </div>
