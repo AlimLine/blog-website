@@ -7,9 +7,8 @@ export default defineConfig({
   plugins: [
     laravel({
       input: [
-        'resources/css/app.css',
-        'resources/js/app.js',
-        'resources/js/react/views/Page/index.tsx'
+        'resources/js/react/views/MainPage/index.tsx',
+        'resources/js/react/views/Admin/index.tsx'
       ],
       refresh: true,
     }),
