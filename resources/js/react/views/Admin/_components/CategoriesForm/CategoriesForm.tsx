@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styles from '@/views/Admin/admin.module.scss'
+import axios from "axios";
 
 const CategoriesForm = () => {
   const [newCategoryName, setNewCategoryName] = useState<string>('')
@@ -8,7 +9,24 @@ const CategoriesForm = () => {
     setNewCategoryName(e.target.value)
   }
 
-  return <form className={styles.categories_form}>
+  const onSubmit = (e) => {
+    e.preventDefault()
+
+    axios.post('/api/create-category', {name: newCategoryName})
+      .then(response => {
+        console.log('Категория создана:', response.data);
+      })
+      .catch(error => {
+        if (error.response) {
+          console.log('Ошибка сервера:', error.response.data);
+        } else {
+          console.log('Ошибка запроса:', error.message);
+        }
+      });
+  }
+
+
+  return <form className={styles.categories_form} onSubmit={onSubmit}>
     <input
       value={newCategoryName}
       onChange={nameOnChangeEvent}
@@ -16,7 +34,7 @@ const CategoriesForm = () => {
       placeholder='Название категории'
     />
 
-    <button className={styles.button}>
+    <button className={styles.button} type='submit'>
       Создать категорию
     </button>
   </form>
