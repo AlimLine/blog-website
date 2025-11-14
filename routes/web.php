@@ -2,10 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/kk', function () {
+Route::get('/', function () {
   return view('page');
 });
 
-Route::get('/kk/admin', function () {
+Route::get('/admin', function () {
   return view('admin');
 });
