@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,3 +12,5 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/get-categories', [CategoryController::class, 'getCategories']);
 Route::post('/create-category', [CategoryController::class, 'createCategory']);
+Route::get('/get-blog', [BlogController::class, 'getBlog']);
+Route::post('/create-blog', [BlogController::class, 'createBlog']);

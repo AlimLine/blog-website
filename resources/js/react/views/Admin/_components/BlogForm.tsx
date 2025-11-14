@@ -76,7 +76,7 @@ const BlogForm = () => {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    axios.post('/api/create-category', {...sendData})
+    axios.post('/api/create-blog', {...sendData})
       .then(response => {
         console.log('Категория создана:', response.data);
       })
@@ -100,12 +100,14 @@ const BlogForm = () => {
     />
 
     <input
-      name='name'
+      name='description'
       value={sendData.description}
       onChange={nameOnChangeEvent}
       className={styles.input}
       placeholder='Описание блога'
     />
+
+    <p>Выберите категорию</p>
 
     <Select
       onChange={handleChangeSelect}
