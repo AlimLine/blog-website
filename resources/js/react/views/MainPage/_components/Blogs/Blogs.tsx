@@ -54,7 +54,7 @@ const Blogs = () => {
         <img src={item?.image} alt="" />
 
         <div className={styles.heading}>
-          <p className={styles.category}>{getCategoryName(item?.category_id)}</p>
+          <p className={styles.category}>{getCategoryName(+item?.category_id)}</p>
           <p>{item?.name}</p>
           <p>{item?.description}</p>
         </div>

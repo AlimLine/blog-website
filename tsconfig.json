@@ -9,8 +9,6 @@
     "paths": {
       "@/*": ["./resources/js/react/*"]
     },
-    "lib": [
-      "ES2021.String", "DOM"
-    ]
+    "lib": ["DOM", "ES2020"]
   }
 }
