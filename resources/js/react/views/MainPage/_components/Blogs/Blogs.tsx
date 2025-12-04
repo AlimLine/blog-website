@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from "react";
 import styles from './blogs.module.scss'
 import axios from "axios";
+import {Modal} from "@mui/material";
+import BlogModal from "@/views/MainPage/_components/Blogs/_components/BlogModal/BlogModal";
 
-interface BlogsType {
+export interface BlogsType {
   name: string
   description: string
   image: string
@@ -18,6 +20,8 @@ interface CategoriesListType {
 const Blogs = () => {
   const [data, setData] = useState<BlogsType[]>([])
   const [categoriesList, setCategoriesList] = useState<CategoriesListType[]>([])
+  const [blogModal, setBlogModal] = useState(false)
+  const [activeElementId, setActiveElementId] = useState(null)
 
   useEffect(() => {
     getBlogs()
@@ -48,9 +52,18 @@ const Blogs = () => {
     return categoriesList?.find((item) => item.id === id)?.name
   }
 
+  const activeElementEvent = (id: number) => {
+    setBlogModal(true)
+    setActiveElementId(id)
+
+    console.log(id)
+  }
+
+
+
   return <div className={styles.blogs}>
     {data?.map((item, index) => (
-      <div className={styles.item} key={index}>
+      <div className={styles.item} key={index} onClick={() => activeElementEvent(item.id)}>
         <img src={item?.image} alt="" />
 
         <div className={styles.heading}>
@@ -60,6 +73,14 @@ const Blogs = () => {
         </div>
       </div>
     ))}
+
+    <Modal open={blogModal}>
+      <BlogModal
+        setBlogModal={setBlogModal}
+        itemData={data?.find((item) => item.id === activeElementId)}
+        getCategoryName={getCategoryName}
+      />
+    </Modal>
   </div>
 }
 
