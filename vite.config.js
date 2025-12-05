@@ -8,6 +8,7 @@ export default defineConfig({
     laravel({
       input: [
         'resources/js/react/views/MainPage/index.tsx',
+        'resources/js/react/views/Login/index.tsx',
         'resources/js/react/views/Admin/index.tsx'
       ],
       refresh: true,
