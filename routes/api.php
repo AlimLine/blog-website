@@ -18,7 +18,7 @@ Route::post('/login', function (Request $request) {
   $user = \App\Models\Users::where('name', $request->name)->first();
 
   if (! $user || ! Hash::check($request->password, $user->password)) {
-    return response()->json(['error' => 'Неверный логин или пароль'], 401);
+    return response()->json(['error' => 'Неверный логин или пароль'], 500);
   }
 
   $token = $user->createToken('session')->plainTextToken;
