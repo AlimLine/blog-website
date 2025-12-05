@@ -74,7 +74,7 @@ const Blogs = () => {
       </div>
     ))}
 
-    <Modal open={blogModal}>
+    <Modal open={blogModal} className={styles.blog_modal}>
       <BlogModal
         setBlogModal={setBlogModal}
         itemData={data?.find((item) => item.id === activeElementId)}

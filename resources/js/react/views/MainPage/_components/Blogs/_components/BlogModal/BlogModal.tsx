@@ -1,6 +1,7 @@
 import React from "react";
-import styles from "@/views/MainPage/_components/Blogs/blogs.module.scss";
+import styles from './blog-modal.module.scss'
 import {BlogsType} from "@/views/MainPage/_components/Blogs/Blogs";
+import CloseIcon from '@mui/icons-material/Close';
 
 interface BlogModalProps {
   itemData: BlogsType
@@ -15,8 +16,9 @@ const BlogModal = (props: BlogModalProps) => {
     setBlogModal
   } = props
   return (
-    <div className={styles.item} onClick={() => setBlogModal(true)}>
-      <img src={itemData?.image} alt="" />
+    <div className={styles.item}>
+      <CloseIcon onClick={() => setBlogModal(false)} className={styles.closeIcon} />
+      <img src={itemData?.image} alt="" className={styles.image} />
 
       <div className={styles.heading}>
         <p className={styles.category}>{getCategoryName(+itemData?.category_id)}</p>
