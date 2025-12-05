@@ -4,6 +4,10 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestCo
 const TIMEOUT = 60000;
 export const ACCESS_TOKEN = 'token';
 
+const getTokenFromStorage = () => {
+  return localStorage.getItem(ACCESS_TOKEN)?.replace(/Bearer\s*/gi, '');
+};
+
 const httpClient: AxiosInstance = axios.create({
   baseURL: '/api',
   timeout: TIMEOUT,
@@ -24,13 +28,25 @@ const errorInterceptor = (error: AxiosError) => {
       localStorage.removeItem(ACCESS_TOKEN);
 
       // @ts-ignore
-      // window.location = '/login'
+      window.location = '/login'
 
       break;
   }
 
   return Promise.reject(error);
 };
+
+httpClient.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
+  const token = getTokenFromStorage();
+
+  if (config && config.headers) {
+    config.headers['Authorization'] = `Bearer ${token ?? ''}`;
+  }
+
+  config.headers['Authorization'] = `Bearer ${token ?? ''}`;
+
+  return config;
+});
 
 httpClient.interceptors.response.use(responseInterceptor, errorInterceptor);
 

@@ -16,7 +16,9 @@ const initialLoginData: LoginDataProps = {
 }
 
 interface GetTokenType {
-  token?: string
+  data: {
+    token?: string
+  }
 }
 
 const Login = () => {
@@ -29,7 +31,9 @@ const Login = () => {
     try {
       const res: GetTokenType = await httpClient.post('/login', { ...loginData })
       console.log(res)
-      localStorage.setItem('token', res?.token)
+      localStorage.setItem('token', res.data.token)
+      // @ts-ignore
+      window.location = '/'
     } catch (e) {
       console.log(e)
       setErrorText(e?.message)
