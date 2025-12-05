@@ -2,7 +2,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 const TIMEOUT = 60000;
-export const ACCESS_TOKEN = 'id_token';
+export const ACCESS_TOKEN = 'token';
 
 const httpClient: AxiosInstance = axios.create({
   baseURL: '/api',

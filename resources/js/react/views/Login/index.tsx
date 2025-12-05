@@ -15,17 +15,24 @@ const initialLoginData: LoginDataProps = {
   password: ''
 }
 
+interface GetTokenType {
+  token?: string
+}
+
 const Login = () => {
   const [loginData, setLoginData] = useState<LoginDataProps>(initialLoginData)
+  const [errorText, setErrorText] = useState('')
 
   const onSubmit = async (e) => {
     e.preventDefault()
 
     try {
-      const res = await httpClient.post('/login', { ...loginData })
+      const res: GetTokenType = await httpClient.post('/login', { ...loginData })
       console.log(res)
+      localStorage.setItem('token', res?.token)
     } catch (e) {
       console.log(e)
+      setErrorText(e?.message)
     }
   }
 
@@ -63,6 +70,10 @@ const Login = () => {
               placeholder='Пароль'
             />
           </div>
+
+          {errorText ? (
+            <p className={styles.error_text}>{errorText}</p>
+          ) : null}
 
           <Button type='submit' className={styles.submitButton} variant='outlined' color='secondary'>
             Войти
