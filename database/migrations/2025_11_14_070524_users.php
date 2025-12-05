@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -21,12 +22,12 @@ return new class extends Migration {
     DB::table('users')->insert([
       [
         'name' => 'admin',
-        'password' => 'ss',
+        'password' => Hash::make('ss'),
         'role' => 'admin'
       ],
       [
         'name' => 'user',
-        'password' => 'Qwerty',
+        'password' => Hash::make('Qwerty'),
         'role' => 'user'
       ],
     ]);

@@ -3,6 +3,7 @@ import {createReactRoot} from '@/helpers/createReactRoot.jsx'
 import styles from "./page.module.scss"
 import iBackGround from "@/assets/MainPage/background.png";
 import {Button} from "@mui/material";
+import httpClient from "@/helpers/httpClient";
 
 interface LoginDataProps {
   name: string
@@ -17,8 +18,15 @@ const initialLoginData: LoginDataProps = {
 const Login = () => {
   const [loginData, setLoginData] = useState<LoginDataProps>(initialLoginData)
 
-  const onSubmit = () => {
+  const onSubmit = async (e) => {
+    e.preventDefault()
 
+    try {
+      const res = await httpClient.post('/login', { ...loginData })
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   const handleOnChangeEvent = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +43,7 @@ const Login = () => {
       <img src={iBackGround} alt="" className={styles.bg} />
 
       <div className={styles.container}>
-        <form action={onSubmit} className={styles.form}>
+        <form onSubmit={onSubmit} className={styles.form}>
           <h3>Вход</h3>
 
           <div className={styles.inputs}>

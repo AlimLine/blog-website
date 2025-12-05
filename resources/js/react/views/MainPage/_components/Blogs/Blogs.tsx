@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import styles from './blogs.module.scss'
-import axios from "axios";
 import {Modal} from "@mui/material";
 import BlogModal from "@/views/MainPage/_components/Blogs/_components/BlogModal/BlogModal";
+import httpClient from "@/helpers/httpClient";
 
 export interface BlogsType {
   name: string
@@ -30,7 +30,7 @@ const Blogs = () => {
 
   const getCategories = async () => {
     try {
-      const res = await axios.get('/api/get-categories');
+      const res = await httpClient.get('/get-categories')
       console.log(res?.data)
       setCategoriesList(res?.data)
     } catch (e) {
@@ -40,7 +40,7 @@ const Blogs = () => {
 
   const getBlogs = async () => {
     try {
-      const res = await axios.get('/api/get-blog');
+      const res = await httpClient.get('/get-blog');
       console.log(res?.data)
       setData(res?.data)
     } catch (e) {

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import styles from '@/views/Admin/admin.module.scss'
-import axios from "axios";
 import {MenuItem, Select} from "@mui/material";
+import httpClient from "@/helpers/httpClient";
 
 interface SendDataType {
   name: string
@@ -34,7 +34,7 @@ const BlogForm = () => {
 
   const getCategories = async () => {
     try {
-      const res = await axios.get('/api/get-categories');
+      const res = await httpClient.get('/get-categories');
       console.log(res?.data)
       setCategoriesList(res?.data)
     } catch (e) {
@@ -67,26 +67,21 @@ const BlogForm = () => {
     reader.onloadend = () => {
       setSendData({
         ...sendData,
-        image: reader.result
+        image: reader.result as string
       }); // reader.result — это Base64
     };
     reader.readAsDataURL(file); // конвертируем в Base64
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
-    axios.post('/api/create-blog', {...sendData})
-      .then(response => {
-        console.log('Категория создана:', response.data);
-      })
-      .catch(error => {
-        if (error.response) {
-          console.log('Ошибка сервера:', error.response.data);
-        } else {
-          console.log('Ошибка запроса:', error.message);
-        }
-      });
+    try {
+      const res = await httpClient.post('/create-blog', {...sendData})
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
 

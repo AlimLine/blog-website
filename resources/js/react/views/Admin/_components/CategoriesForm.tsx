@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styles from '@/views/Admin/admin.module.scss'
-import axios from "axios";
+import httpClient from "@/helpers/httpClient";
 
 const CategoriesForm = () => {
   const [newCategoryName, setNewCategoryName] = useState<string>('')
@@ -9,20 +9,15 @@ const CategoriesForm = () => {
     setNewCategoryName(e.target.value)
   }
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
 
-    axios.post('/api/create-category', {name: newCategoryName})
-      .then(response => {
-        console.log('Категория создана:', response.data);
-      })
-      .catch(error => {
-        if (error.response) {
-          console.log('Ошибка сервера:', error.response.data);
-        } else {
-          console.log('Ошибка запроса:', error.message);
-        }
-      });
+    try {
+      const res = await httpClient.post('/create-category', {name: newCategoryName})
+      console.log(res)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
 
